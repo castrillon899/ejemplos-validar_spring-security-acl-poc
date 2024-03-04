@@ -32,7 +32,7 @@ public class LiveEditorController {
     }
 
     @RequestMapping(value = "/changes", produces = "application/json",
-            method = RequestMethod.POST)
+        method = RequestMethod.POST)
     @ResponseBody
     LiveEditorChange createMessage(@RequestBody LiveEditorChange change) {
         return liveEditorService.createChange(change);

@@ -1,0 +1,148 @@
+
+CREATE TABLE conjunto_a (
+   id bigint    PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50),
+    descripcion VARCHAR(255)
+);
+
+CREATE TABLE conjunto_b (
+    id bigint  PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50),
+    descripcion VARCHAR(255),
+    conjunto_a_id bigint,
+    FOREIGN KEY (conjunto_a_id) REFERENCES conjunto_a(id)
+);
+
+
+CREATE TABLE conjunto_c (
+  id  bigint  PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50),
+    descripcion VARCHAR(255),
+    conjunto_b_id bigint,
+    FOREIGN KEY (conjunto_b_id) REFERENCES conjunto_b(id)
+);
+
+
+
+INSERT INTO conjunto_a (id, nombre, descripcion) VALUES
+                                                     (1, 'urbanizando 1', 'urbanizando 1'),
+                                                     (2, 'urbanizacion 2', 'urbanizando 2');
+
+-- Inserts para Conjunto B
+INSERT INTO conjunto_b (id, nombre, descripcion, conjunto_a_id) VALUES
+                                                                    (1, 'torre 1 urb 1', 'torre 1', 1),
+                                                                    (2, 'torre 2 urb 1', 'torre 2', 1),
+                                                                    (3, 'parcelacion xxx urb2', 'parcelacion xxx urb2', 2);
+
+
+-- Inserts para Conjunto C
+INSERT INTO conjunto_c (id, nombre, descripcion, conjunto_b_id) VALUES
+                                                                    (1, 'apartamento 1', 'apartamento torre 1', 1),
+                                                                    (2, 'apartamento 2', 'apartamento torre 2', 2),
+                                                                    (3, 'vivienda 1', 'vivienda condominio', 3);
+
+
+
+
+
+INSERT INTO acl_sid (id, principal, sid) VALUES
+                                             (7, 1, 'angeluser'),
+                                             (8, 1, 'carlosuser'),
+                                             (9, 1, 'contado1');
+
+
+INSERT INTO acl_class (id, class) VALUES
+                                      (3, 'com.conductor.acl.poc.persistence.entity.ConjuntoA'),
+                                      (4, 'com.conductor.acl.poc.persistence.entity.ConjuntoB'),
+                                      (5, 'com.conductor.acl.poc.persistence.entity.ConjuntoC');
+
+
+
+
+
+
+INSERT INTO acl_object_identity (id, object_id_class, object_id_identity, parent_object, owner_sid, entries_inheriting)
+VALUES
+     (20, 3, 1, NULL, 7, 0),
+     (21, 3, 2, NULL, 8, 0),
+     (22, 4, 1, 20, 7, 1),
+     (23, 4, 2, 20, 7, 1),
+     (24, 4, 3, 21, 8, 1),
+     (25, 5, 1, 22, 7, 1),
+     (26, 5, 2, 23, 7, 1),
+     (27, 5, 3, 24, 8, 1);
+
+
+
+INSERT INTO acl_entry (id, acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) VALUES
+ (200, 20, 1, 7, 1, 1, 1, 1),
+ (201, 21, 1, 8, 1, 1, 1, 1);
+
+
+
+
+
+INSERT INTO acl_object_identity (id, object_id_class, object_id_identity, parent_object, owner_sid, entries_inheriting) 
+VALUES
+  (1, 2, 1, NULL, 3, 0),
+  (2, 2, 2, NULL, 3, 0),
+  (3, 2, 3, NULL, 3, 0),
+  (4, 1, 1, 3, 3, 1),
+  (5, 1, 2, 3, 3, 1),
+  (6, 1, 3, 2, 3, 1),
+  (7, 1, 4, 1, 3, 1);
+
+
+
+
+
+INSERT INTO web_property(id, name) VALUES
+                                       (1,'example.com'),
+                                       (2,'apple.com'),
+                                       (3,'conductor.com');
+
+INSERT INTO editor_change(id ,web_property_id, change_content) VALUES
+                                                                   (1,3,'change1 for conductor'),
+                                                                   (2,3, 'change2 for conductor'),
+                                                                   (3,2, 'change1 for apple'),
+                                                                   (4,1, 'change1 for example');
+
+INSERT INTO acl_sid (id, principal, sid) VALUES
+(1, 1, '1'),
+(2, 1, '2'),
+(3, 1, '3'),
+(4, 0, 'ROLE_CONDUCTOR'),
+(5, 0, 'ROLE_PUBLISHER'),
+(6, 0, 'ROLE_ADMIN');
+
+INSERT INTO user_roles (id,user_id,role) VALUES
+(1, 1, 'ROLE_PUBLISHER'),
+(2, 2, 'ROLE_CONDUCTOR'),
+(3, 3, 'ROLE_ADMIN');
+
+INSERT INTO acl_class (id, class) VALUES
+(1, 'com.conductor.acl.poc.persistence.entity.LiveEditorChange'),
+(2, 'com.conductor.acl.poc.persistence.entity.WebProperty');
+
+INSERT INTO acl_object_identity (id, object_id_class, object_id_identity, parent_object, owner_sid, entries_inheriting) VALUES
+(1, 2, 1, NULL, 3, 0),
+(2, 2, 2, NULL, 3, 0),
+(3, 2, 3, NULL, 3, 0),
+(4, 1, 1, 3, 3, 1),
+(5, 1, 2, 3, 3, 1),
+(6, 1, 3, 2, 3, 1),
+(7, 1, 4, 1, 3, 1);
+
+INSERT INTO acl_entry (id, acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) VALUES
+(1, 3, 1, 1, 1, 1, 1, 1),
+(2, 2, 2, 1, 1, 1, 1, 1),
+(3, 3, 3, 2, 1, 1, 1, 1),
+(4, 1, 4, 3, 1, 1, 1, 1),
+(5, 2, 5, 3, 1, 1, 1, 1),
+(6, 3, 6, 3, 1, 1, 1, 1),
+(21, 3, 21, 1, 0, 1, 1, 1),
+(22, 2, 22, 1, 0, 1, 1, 1),
+(23, 3, 23, 2, 0, 1, 1, 1),
+(24, 1, 24, 3, 0, 1, 1, 1),
+(25, 2, 25, 3, 0, 1, 1, 1),
+(26, 3, 26, 3, 0, 1, 1, 1);

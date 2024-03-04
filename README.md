@@ -67,6 +67,6 @@ curl -X POST "http://localhost:8081/changes" -d '{"id":33,"changeContent": "new 
 ```
  however can not publish to `example.com`
 ```bash
-curl -X POST "http://localhost:8081/changes" -d '{"id": 34,"changeContent": "new change","webProperty": {"id": 1,"name": "example.com"}}' -H "Content-Type: application/json" -H "Authorization:$USER1"
+curl -X POST "http://localhost:8081/changes" -d '{"id": 34,"changeContent": "new change","webProperty": {"id": 1,"name": "example.com"}}' -H "Content-Type: application/json" -H "Authorization:Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjoxLCJzdWIiOiIxIiwiaWF0IjoxNzA5MTczMDc2LCJleHAiOjE3MDkxOTEwNzZ9.aqr95IFaRJKblfYS4usaxPY3rE_PvvegJY2t0RLo3kUKg6olYQfEPIqsICJatLCl-YKiw-OR1j0k26IaAo99igCO0C02GKQS5MD6M"
 
 ```

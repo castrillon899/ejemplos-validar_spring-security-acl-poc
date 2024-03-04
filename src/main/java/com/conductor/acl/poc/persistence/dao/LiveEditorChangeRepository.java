@@ -12,13 +12,15 @@ import java.util.List;
 public interface LiveEditorChangeRepository extends JpaRepository<LiveEditorChange, Long> {
 
     @PostFilter("hasPermission(filterObject.webProperty, 'READ')")
+
+
     List<LiveEditorChange> findAll();
 
     @PostAuthorize("hasPermission(returnObject, 'READ')")
     LiveEditorChange findById(Integer id);
 
     @SuppressWarnings("unchecked")
-    @PreAuthorize("hasPermission(#liveEditorChange.webProperty, 'READ') " +
+    @PreAuthorize("hasPermission(#liveEditorChange.webProperty, 'WRITE') " +
             "and hasAnyRole('ROLE_PUBLISHER','ROLE_ADMIN')")
     LiveEditorChange save(@Param("liveEditorChange") LiveEditorChange liveEditorChange);
 }
