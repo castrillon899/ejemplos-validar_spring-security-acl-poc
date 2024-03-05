@@ -84,3 +84,29 @@ ALTER TABLE acl_object_identity
 
 ALTER TABLE acl_object_identity
     ADD FOREIGN KEY (owner_sid) REFERENCES acl_sid (id);
+
+
+
+CREATE TABLE conjunto_a (
+                            id bigint    PRIMARY KEY AUTO_INCREMENT,
+                            nombre VARCHAR(50),
+                            descripcion VARCHAR(255)
+);
+
+CREATE TABLE conjunto_b (
+                            id bigint  PRIMARY KEY AUTO_INCREMENT,
+                            nombre VARCHAR(50),
+                            descripcion VARCHAR(255),
+                            conjunto_a_id bigint,
+                            FOREIGN KEY (conjunto_a_id) REFERENCES conjunto_a(id)
+);
+
+
+CREATE TABLE conjunto_c (
+                            id  bigint  PRIMARY KEY AUTO_INCREMENT,
+                            nombre VARCHAR(50),
+                            descripcion VARCHAR(255),
+                            conjunto_b_id bigint,
+                            FOREIGN KEY (conjunto_b_id) REFERENCES conjunto_b(id)
+);
+

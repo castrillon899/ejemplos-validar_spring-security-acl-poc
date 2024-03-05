@@ -17,7 +17,8 @@ public class ServiceConjuntoAController {
 
     private final ServiceConjuntoA serviceConjuntoA;
 
-    public ServiceConjuntoAController(ServiceConjuntoA serviceConjuntoA) {
+    public ServiceConjuntoAController(ServiceConjuntoA serviceConjuntoA
+    ) {
         this.serviceConjuntoA = serviceConjuntoA;
     }
 
