@@ -1,20 +1,8 @@
 package com.conductor.acl.poc.config;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.acls.AclPermissionCacheOptimizer;
@@ -35,11 +23,14 @@ import javax.sql.DataSource;
 @Configuration
 public class AclConfig {
 
-    @Autowired
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
-    @Autowired
-    private RedisCacheManager cacheManager;
+    private final RedisCacheManager cacheManager;
+
+    public AclConfig(DataSource dataSource, RedisCacheManager cacheManager) {
+        this.dataSource = dataSource;
+        this.cacheManager = cacheManager;
+    }
 
     @Bean
     public MethodSecurityExpressionHandler defaultMethodSecurityExpressionHandler() {

@@ -14,8 +14,11 @@ import java.util.List;
 @RestController
 public class LiveEditorController {
 
-    @Autowired
-    LiveEditorService liveEditorService;
+    final LiveEditorService liveEditorService;
+
+    public LiveEditorController(LiveEditorService liveEditorService) {
+        this.liveEditorService = liveEditorService;
+    }
 
 
     @RequestMapping(value = "/", produces = "application/json")

@@ -1,6 +1,5 @@
 package com.conductor.acl.poc.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -10,8 +9,11 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class AclMethodSecurityConfiguration extends GlobalMethodSecurityConfiguration {
 
-    @Autowired
-    MethodSecurityExpressionHandler defaultMethodSecurityExpressionHandler;
+    final MethodSecurityExpressionHandler defaultMethodSecurityExpressionHandler;
+
+    public AclMethodSecurityConfiguration(MethodSecurityExpressionHandler defaultMethodSecurityExpressionHandler) {
+        this.defaultMethodSecurityExpressionHandler = defaultMethodSecurityExpressionHandler;
+    }
 
     @Override
     protected MethodSecurityExpressionHandler createExpressionHandler() {
